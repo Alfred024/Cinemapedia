@@ -1,0 +1,1 @@
+class MovieRepositoryImpl extends Mov {}
