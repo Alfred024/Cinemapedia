@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 //dotenv for environment variables
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+//Riverpod
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //órden de importaciones
 //1.- Importaciones de Dart
@@ -13,7 +15,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
   await dotenv.load(fileName: ".env");
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
