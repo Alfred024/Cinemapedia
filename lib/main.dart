@@ -2,13 +2,17 @@ import 'package:cinemapedia/config/router/app_router.dart';
 import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
+//dotenv for environment variables
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 //órden de importaciones
 //1.- Importaciones de Dart
 //2.- Importaciones de Flutter
 //3.- Importaciones de terceros
 //4.- Dependencias
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MainApp());
 }
 
