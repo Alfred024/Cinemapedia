@@ -37,7 +37,6 @@ class __HomeViewState extends ConsumerState<_HomeView> {
     return Column(children: [
       const CustomAppBar(),
       MoviesSlideShow(movies: moviesOnXPage),
-      const Text('HOLAAAAAAA')
     ]);
   }
 }
