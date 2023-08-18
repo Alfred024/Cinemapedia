@@ -6,6 +6,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final texts = Theme.of(context).textTheme.titleMedium;
 
     return SafeArea(
       bottom: false,
@@ -19,7 +20,10 @@ class CustomAppBar extends StatelessWidget {
                 Icons.movie,
                 color: colors.primary,
               ),
-              const Text('Cinemapedia'),
+              Text(
+                'Cinemapedia',
+                style: texts,
+              ),
               const Spacer(),
               IconButton(
                   color: colors.primary,

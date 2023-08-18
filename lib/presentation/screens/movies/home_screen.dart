@@ -36,16 +36,55 @@ class __HomeViewState extends ConsumerState<_HomeView> {
     final moviesSlide = ref.watch(moviesSlideShowProvider);
     final moviesOnXPage = ref.watch(nowPlayingProvider);
 
-    return Column(children: [
-      const CustomAppBar(),
-      MoviesSlideShow(movies: moviesSlide),
-      MovieHorizontalListView(
-        title: 'En cines',
-        subTitle: 'Viernes 18',
-        movies: moviesOnXPage,
-        loadNextPage: () =>
-            ref.read(nowPlayingProvider.notifier).loadNextPage(),
+    return CustomScrollView(slivers: [
+      const SliverAppBar(
+        floating: true,
+        flexibleSpace: FlexibleSpaceBar(
+          title: CustomAppBar(),
+        ),
       ),
+      SliverList(
+          delegate: SliverChildBuilderDelegate(
+        childCount: 1,
+        (context, index) {
+          return Column(
+            children: [
+              MoviesSlideShow(movies: moviesSlide),
+              MovieHorizontalListView(
+                title: 'En cines',
+                subTitle: 'Viernes 18',
+                movies: moviesOnXPage,
+                loadNextPage: () =>
+                    ref.read(nowPlayingProvider.notifier).loadNextPage(),
+              ),
+              MovieHorizontalListView(
+                title: 'Proximamente',
+                subTitle: 'En un mes',
+                movies: moviesOnXPage,
+                loadNextPage: () =>
+                    ref.read(nowPlayingProvider.notifier).loadNextPage(),
+              ),
+              MovieHorizontalListView(
+                title: 'En cines',
+                subTitle: 'Viernes 18',
+                movies: moviesOnXPage,
+                loadNextPage: () =>
+                    ref.read(nowPlayingProvider.notifier).loadNextPage(),
+              ),
+              MovieHorizontalListView(
+                title: 'En cines',
+                subTitle: 'Viernes 18',
+                movies: moviesOnXPage,
+                loadNextPage: () =>
+                    ref.read(nowPlayingProvider.notifier).loadNextPage(),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          );
+        },
+      )),
     ]);
   }
 }
