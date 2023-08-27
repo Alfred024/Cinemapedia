@@ -77,6 +77,7 @@ class __HomeViewState extends ConsumerState<_HomeView> {
               MovieHorizontalListView(
                 title: 'Popular',
                 subTitle: '',
+                //movies: popularMovies,
                 movies: nowPlayingMovies,
                 loadNextPage: () =>
                     ref.read(popularProvider.notifier).loadNextPage(),
@@ -84,6 +85,7 @@ class __HomeViewState extends ConsumerState<_HomeView> {
               MovieHorizontalListView(
                 title: 'Mejor calificadas',
                 subTitle: '',
+                //movies: topRatedMovies,
                 movies: upcomigMovies,
                 loadNextPage: () =>
                     ref.read(topRatedProvider.notifier).loadNextPage(),
