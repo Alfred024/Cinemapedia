@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movies.dart';
 import 'package:cinemapedia/presentation/providers/actors/actors_by_movie_provider.dart';
 import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
@@ -110,6 +111,9 @@ class _MovieDetails extends StatelessWidget {
             ],
           ),
         ),
+        ActorsByMovie(
+          movieId: movie.id.toString(),
+        ),
         const SizedBox(
           height: 150,
         )
@@ -151,6 +155,10 @@ class _CustomSliverAppBar extends StatelessWidget {
                 movie.posterPath,
                 fit: BoxFit.cover,
                 scale: 0.5,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress != null) return const SizedBox();
+                  return FadeIn(child: child);
+                },
               ),
             ),
 
@@ -187,6 +195,64 @@ class _CustomSliverAppBar extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ActorsByMovie extends ConsumerWidget {
+  final String movieId;
+
+  const ActorsByMovie({super.key, required this.movieId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final actorsByMovie = ref.watch(actorsByMovieProvider)[movieId];
+    if (actorsByMovie == null) {
+      return const CircularProgressIndicator(
+        strokeWidth: 2,
+      );
+    }
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: actorsByMovie.length,
+          itemBuilder: (context, index) {
+            final actor = actorsByMovie[index];
+
+            return Container(
+              padding: const EdgeInsets.all(8.0),
+              width: 135,
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(
+                      actor.profilePath,
+                      height: 180,
+                      width: 135,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  Text(
+                    actor.name,
+                    maxLines: 2,
+                    style: const TextStyle(overflow: TextOverflow.ellipsis),
+                  ),
+                  Text(
+                    actor.charachter ?? '',
+                    maxLines: 2,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis),
+                  ),
+                ],
+              ),
+            );
+          }),
     );
   }
 }
