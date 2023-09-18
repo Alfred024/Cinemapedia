@@ -7,7 +7,6 @@ typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
 
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
   final SearchMoviesCallback searchedMovies;
-
   SearchMovieDelegate({required this.searchedMovies});
 
   @override
@@ -50,15 +49,54 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
           final movies = snapshot.data ?? [];
           return ListView.builder(
             itemCount: movies.length,
-            itemBuilder: (context, index) {
-              final movie = movies[index];
-
-              return ListTile(
-                tileColor: Colors.orange,
-                title: Text(movie.title),
-              );
-            },
+            itemBuilder: (context, index) => _MovieItem(movie: movies[index]),
           );
         });
+  }
+}
+
+class _MovieItem extends StatelessWidget {
+  final Movie movie;
+
+  const _MovieItem({required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyles = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size;
+
+    return Row(
+        //padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        children: [
+          SizedBox(
+            width: size.width * 0.2,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                movie.posterPath,
+                loadingBuilder: (context, child, loadingPorgress) =>
+                    FadeIn(child: child),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          SizedBox(
+            width: size.width * 0.7,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  movie.title,
+                  style: textStyles.titleMedium,
+                ),
+                (movie.overview.length > 100)
+                    ? Text(movie.overview.substring(0, 100))
+                    : Text(movie.overview),
+              ],
+            ),
+          )
+        ]);
   }
 }
