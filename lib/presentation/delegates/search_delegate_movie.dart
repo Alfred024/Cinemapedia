@@ -50,7 +50,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
           final movies = snapshot.data ?? [];
           return ListView.builder(
             itemCount: movies.length,
-            itemBuilder: (context, index) => _MovieItem(movie: movies[index]),
+            itemBuilder: (context, index) => _MovieItem(
+              movie: movies[index],
+              onMovieSelected: close,
+            ),
           );
         });
   }
@@ -58,17 +61,20 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
 class _MovieItem extends StatelessWidget {
   final Movie movie;
+  final Function onMovieSelected;
 
-  const _MovieItem({required this.movie});
+  const _MovieItem({required this.movie, required this.onMovieSelected});
 
   @override
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
 
-    return Row(
-        //padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        children: [
+    return GestureDetector(
+      onTap: () => onMovieSelected(context, movie),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Row(children: [
           SizedBox(
             width: size.width * 0.2,
             child: ClipRRect(
@@ -111,6 +117,8 @@ class _MovieItem extends StatelessWidget {
               ],
             ),
           )
-        ]);
+        ]),
+      ),
+    );
   }
 }
