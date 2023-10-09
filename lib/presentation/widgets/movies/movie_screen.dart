@@ -140,6 +140,10 @@ class _CustomSliverAppBar extends StatelessWidget {
       ),
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
+      actions: [
+        IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_border)),
+        // IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_rounded)),
+      ],
       expandedHeight: size.height * 0.60,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.all(12),
@@ -163,38 +167,68 @@ class _CustomSliverAppBar extends StatelessWidget {
             ),
 
             //Top gradient
-            const SizedBox.expand(
-              child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      gradient:
-                          LinearGradient(begin: Alignment.topLeft, stops: [
-                0.0,
-                0.3,
-              ], colors: [
-                Colors.black87,
-                Colors.transparent,
-              ]))),
-            ),
+            const _CustomGradient(
+                beginAlignment: Alignment.topLeft,
+                endAlignment: Alignment.bottomLeft,
+                stopsA: 0.0,
+                stopsB: 0.3,
+                colorA: Colors.black87,
+                colorB: Colors.transparent),
+
+            //Right gradient
+            // const _CustomGradient(
+            //     beginAlignment: Alignment.topRight,
+            //     endAlignment: Alignment.bottomLeft,
+            //     stopsA: 0.0,
+            //     stopsB: 0.2,
+            //     colorA: Colors.black87,
+            //     colorB: Colors.transparent),
 
             //Bottom gradient
-            const SizedBox.expand(
-              child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: [
-                    0.7,
-                    1.0,
-                  ],
-                          colors: [
-                    Colors.transparent,
-                    Colors.black87,
-                  ]))),
-            )
+            const _CustomGradient(
+                beginAlignment: Alignment.topCenter,
+                endAlignment: Alignment.bottomCenter,
+                stopsA: 0.7,
+                stopsB: 1.0,
+                colorA: Colors.transparent,
+                colorB: Colors.black87)
           ],
         ),
       ),
+    );
+  }
+}
+
+class _CustomGradient extends StatelessWidget {
+  final Alignment beginAlignment;
+  final Alignment endAlignment;
+  final double stopsA, stopsB;
+  final Color colorA, colorB;
+
+  const _CustomGradient(
+      {required this.beginAlignment,
+      required this.endAlignment,
+      required this.stopsA,
+      required this.stopsB,
+      required this.colorA,
+      required this.colorB});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: DecoratedBox(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: beginAlignment,
+                  end: endAlignment,
+                  stops: [
+            stopsA,
+            stopsB,
+          ],
+                  colors: [
+            colorA,
+            colorB,
+          ]))),
     );
   }
 }
