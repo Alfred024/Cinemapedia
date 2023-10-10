@@ -1,6 +1,6 @@
 import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../domain/entities/movies.dart';
+import '../../../domain/entities/movie.dart';
 
 //Al state notifier le indicamos el notifier que controla su estado
 //y la clase de dato que va a cambiar

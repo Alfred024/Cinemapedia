@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../domain/entities/movies.dart';
+import '../../../domain/entities/movie.dart';
 
 class CustomAppBar extends ConsumerWidget {
   const CustomAppBar({super.key});
