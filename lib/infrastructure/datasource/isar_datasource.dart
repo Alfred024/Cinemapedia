@@ -4,10 +4,11 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 class IsarDatasource extends LocalStorageDatasource {
-  late Future<Isar> db;
+  late Future<Isar> db = openDB();
 
+  // ignore: non_constant_identifier_names
   IsarDataSource() {
-    db = openDB();
+    //db = openDB();
   }
 
   Future<Isar> openDB() async {
@@ -20,7 +21,6 @@ class IsarDatasource extends LocalStorageDatasource {
         directory: dir.path,
       );
     }
-
     return Future.value(Isar.getInstance());
   }
 
